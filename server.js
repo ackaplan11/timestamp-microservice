@@ -28,20 +28,21 @@ app.get("/api/hello", function (req, res) {
 app.get('/api/:date', (req, res) => {
   const unixTimeStamp = parseInt(req.params.date)
   //Fri, 25 Dec 2015 00:00:00 GMT"
-  const utcTime = new Date(unixTimeStamp).toLocaleDateString('en-gb', {
-    weekday: "short",
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit',
-    timeZoneName: 'short',
-    timeZone: 'GMT'
-  })
-  console.log(unixTimeStamp)
-  console.log(utcTime)
-  res.json({unix: unixTimeStamp, utc: utcTime})
+  const utcDateTime = new Date(unixTimeStamp).toUTCString()
+  // .toLocaleDateString('en-gb', {
+  //   weekday: "short",
+  //   day: 'numeric',
+  //   month: 'short',
+  //   year: 'numeric',
+  //   hour: '2-digit',
+  //   minute: '2-digit',
+  //   second: '2-digit',
+  //   timeZoneName: 'short',
+  //   timeZone: 'GMT'
+  // })
+  //  console.log(new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium', timeStyle: 'long' }).format(unixTimeStamp))
+  console.log(utcDateTime)
+  res.json({unix: unixTimeStamp, utc: utcDateTime})
 })
 
 const PORT = 4000
