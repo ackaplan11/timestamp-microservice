@@ -3,6 +3,7 @@
 
 // init project
 var express = require('express');
+var strftime = require('strftime')
 var app = express();
 
 // enable CORS (https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)
@@ -24,9 +25,16 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
+app.get('/api/:date', (req, res) => {
+  const unixTimeStamp = parseInt(req.params.date)
+  const utcTime = new Date(unixTimeStamp)
+  console.log(unixTimeStamp)
+  console.log(strftime('%a, %d %b %Y', utcTime))
+  res.json({unix: unixTimeStamp, utc: utcTime})
+})
 
-
+const PORT = 4000
 // listen for requests :)
-var listener = app.listen(process.env.PORT, function () {
+var listener = app.listen(PORT, function () {
   console.log('Your app is listening on port ' + listener.address().port);
 });
