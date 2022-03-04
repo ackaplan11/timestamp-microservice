@@ -31,8 +31,6 @@ app.get('/api', (req, res) => {
 })
 
 app.get('/api/:date', (req, res) => {
-  //Fri, 25 Dec 2015 00:00:00 GMT"
-  console.log(req.params.date)
   let unixTimeStamp
   let utcDateTime
   if (isNaN(req.params.date)) {
