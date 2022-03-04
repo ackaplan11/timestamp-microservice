@@ -27,9 +27,20 @@ app.get("/api/hello", function (req, res) {
 
 app.get('/api/:date', (req, res) => {
   const unixTimeStamp = parseInt(req.params.date)
-  const utcTime = new Date(unixTimeStamp)
+  //Fri, 25 Dec 2015 00:00:00 GMT"
+  const utcTime = new Date(unixTimeStamp).toLocaleDateString('en-gb', {
+    weekday: "short",
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    timeZoneName: 'short',
+    timeZone: 'GMT'
+  })
   console.log(unixTimeStamp)
-  console.log(strftime('%a, %d %b %Y', utcTime))
+  console.log(utcTime)
   res.json({unix: unixTimeStamp, utc: utcTime})
 })
 
