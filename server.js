@@ -24,8 +24,15 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
+app.get('/api', (req, res) => {
+  const utcDateTime = new Date()
+  const unixTimeStamp = utcDateTime.getTime()
+  res.json({unix: unixTimeStamp, utc: utcDateTime.toUTCString()})
+})
+
 app.get('/api/:date', (req, res) => {
   //Fri, 25 Dec 2015 00:00:00 GMT"
+  console.log(req.params.date)
   let unixTimeStamp
   let utcDateTime
   if (isNaN(req.params.date)) {
@@ -33,12 +40,12 @@ app.get('/api/:date', (req, res) => {
     unixTimeStamp = utcDateTime.getTime()
   } else {
     unixTimeStamp = parseInt(req.params.date)
-    utcDateTime = new Date(unixTimeStamp).toUTCString()
+    utcDateTime = new Date(unixTimeStamp)
   }
   if (utcDateTime.toString() === 'Invalid Date')
     return res.json({error: utcDateTime.toString()}) 
-  
-  res.json({unix: unixTimeStamp, utc: utcDateTime})
+
+  res.json({unix: unixTimeStamp, utc: utcDateTime.toUTCString()})
 })
 
 const PORT = 4000
